@@ -10,7 +10,7 @@ blueprint = flask.Blueprint('jobs_api', __name__,
 @blueprint.route('/api/jobs/<int:job_id>', methods=['DELETE'])
 def delete_news(job_id):
     session = db_session.create_session()
-    job = session.query(Jobs).get(job_id)
+    job = session.query(Jobs).filter(Jobs.id == job_id).first()
     if not job:
         return jsonify({'error': 'Not found'})
     session.delete(job)
